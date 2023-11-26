@@ -69,7 +69,7 @@ Quick note on sampling, the recommendation for ~best results is to sample with `
 As the neural net architecture is identical, we can also inference the Llama 2 models released by Meta. Sadly there is a bit of friction here due to licensing (I can't directly upload the checkpoints, I think). So Step 1, get the Llama 2 checkpoints by following the [Meta instructions](https://github.com/facebookresearch/llama). Once we have those checkpoints, we have to convert them into the llama2.c format.
 For this we need to install the python dependencies (`pip install -r requirements.txt`) and then use the `export.py` file, e.g. for 7B model:
 
-```bash
+```bash 
 python export.py llama2_7b.bin --meta-llama path/to/llama/model/7B
 ```
 
