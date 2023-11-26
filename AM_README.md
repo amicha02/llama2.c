@@ -12,7 +12,7 @@ In the context of deep learning, a .bin file format typically refers to a binary
     - `stories42M.bin`: This is likely the input model file.
     - `-t 0.8`: Set the temperature for sampling to 0.8. Temperature controls the randomness of the LLM output.
     - `-n 256`: Specify the number of steps or iterations for sampling (in this case, 256 steps).
-    - `-i "One day, Lily met a Shoggoth"`: Provide an input prompt or seed for the text generation.
+    - `-i "One day, sily met a Shoggoth"`: Provide an input prompt or seed for the text generation.
 
 5. 
 
@@ -36,4 +36,4 @@ Every weight in the model checkpoint equalts to 32bits(=4 bytes), therefore 7B p
 - [Absolut Position Encodings](https://paperswithcode.com/method/absolute-position-encodings) where positional encodings are added to the input embeddings at the bottoms of the encoder and decoder sta cks. 
 - Multi-layer Perceptron (MLP) 
  is a misnomer for a modern feedforward artificial neural network, consisting of fully connected neurons with a nonlinear kind of activation function, organized in at least three layers, notable for being able to distinguish data that is not linearly separable. Thanks to self-attention transformers are able to learn to focus on relevant parts of the sequence, even far in time, whereas simple MLPs cannot do this. Moreover, positional encoding provides the transformer to use the sequence order information, enabling it to learn to attend even to relative positions.
-
+l
