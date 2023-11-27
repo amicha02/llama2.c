@@ -21,19 +21,30 @@ In the context of deep learning, a .bin file format typically refers to a binary
 For this we need to install the python dependencies (`pip install -r requirements.txt`) and then use the `export.py` file, e.g. for 7B model
 
 6. python export.py llama2_7b_chat.bin --meta-llama /path/to/7B-chat
-7. ./run llama2_7b.bin <strong>or</strong> ./run llama2_7b_chat.bin -m chat
+7. ./run llama2_7b.bin <strong>or</strong> ./run llama2_7b_chat.bin -m chat  <strong>or</strong> ./runq llama2_7b_q80.bin -m chat
 
 Every weight in the model checkpoint equalts to 32bits(=4 bytes), therefore 7B parameters times 4 bytes = 28GB. That is the size of the model checkpoint
 
-7. 
+4. 
 | Components | Llama2 | GPT-1/2 |
 | --- | --- | --- |
 | Embeddings | RoPE | Absolute/learned positional  |
-| In the MLP| SwiGLU non-linearity  | GELU non-linearity |
+| Non-linearity in the MLP| SwiGLU   | GELU  |
 | Normalzation layer| RMSNorm | LayerNorm |
 | Bias on Linear Layers | True | True |
 - Rotary Position Embedding ([RoPE](https://arxiv.org/abs/2104.09864)) Position encoding recently has shown effective in the transformer architecture. It enables valuable supervision for dependency modeling between elements at different positions of the sequence. RoPE is used to to effectively leverage the positional information. Specifically, the proposed RoPE encodes the absolute position with a rotation matrix and meanwhile incorporates the explicit relative position dependency in self-attention formulation. Notably, RoPE enables valuable properties, including the flexibility of sequence length, decaying inter-token dependency with increasing relative distances, and the capability of equipping the linear self-attention with relative position encoding.
 - [Absolut Position Encodings](https://paperswithcode.com/method/absolute-position-encodings) where positional encodings are added to the input embeddings at the bottoms of the encoder and decoder sta cks. 
 - Multi-layer Perceptron (MLP) 
  is a misnomer for a modern feedforward artificial neural network, consisting of fully connected neurons with a nonlinear kind of activation function, organized in at least three layers, notable for being able to distinguish data that is not linearly separable. Thanks to self-attention transformers are able to learn to focus on relevant parts of the sequence, even far in time, whereas simple MLPs cannot do this. Moreover, positional encoding provides the transformer to use the sequence order information, enabling it to learn to attend even to relative positions.
-l
+ - Swish is a non-monotonic activation function that was proposed by Google researchers in 2017. Swish is defined as follows:
+Swish(x) = x * sigmoid(beta * x)
+- Grated Linear Units (GLU) Gated Linear Units (GLU) are a type of activation function that were proposed by researchers at Microsoft in 2016. GLU is defined as follows:
+GLU(x) = x * sigmoid(Wx + b)
+where 'W' and 'b' are trainable parameters.
+ - SwiGLU is a combination of Swish and GLU activation functions. SwiGLU is defined as follows:
+SwiGLU(x) = x * sigmoid(beta * x) + (1 - sigmoid(beta * x)) * (Wx + b)
+where 'W', 'b', and 'beta' are trainable 
+ - RMSNorm: RMSNorm regularizes the summed inputs to a neuron in one layer ac- cording to root mean square (RMS), giving the model re-scaling invariance property and implicit learning rate adaptation ability. RMSNorm is computationally simpler and thus more efficient than LayerNorm.
+ - Layer normalization (LayerNorm) is a technique to normalize the distributions of intermediate layers.
+
+More information for the above can be found [here](https://www.ai-contentlab.com/2023/03/swishglu-activation-function.html)
